@@ -1,0 +1,15 @@
+version: '3.8'
+x-base:
+        &base
+        image: node:18
+        volumes:
+                - .:/usr/src/box_it
+        environment:
+                - NODE_ENV=development
+services:
+        dev_react:
+                << : *base
+                working_dir: /usr/src/box_it/box_app
+                command: npm start
+                ports:
+                        - 3000:3000
