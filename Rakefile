@@ -1,7 +1,11 @@
 task default: %w[run]
 
 task :run do
-  sh "sudo docker-compose up"
+  sh "sudo docker-compose up" do |ok, res|
+    if !ok && res.exitstatus != 130
+      puts "failed with <#{res}>"
+    end
+  end
 end
 
 task :devel do
@@ -10,6 +14,7 @@ task :devel do
       #puts "ok"
     else
       puts "failed with <#{res}>"
+      puts "exit status <#{res.exitstatus}>"
     end
   end
 end
