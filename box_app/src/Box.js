@@ -13,7 +13,7 @@ const styleTasks = {
   width: 300,
 };
 
-const Box = ({ id, text, index, moveBox, tasks }) => {
+const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
   const boxRef = useRef(null);
   const [{ handlerId}, drop] = useDrop({
     accept: ItemTypes.BOX,
@@ -28,7 +28,7 @@ const Box = ({ id, text, index, moveBox, tasks }) => {
       }
 
       const dragIndex = item.index;
-      const hoverIndex = index;
+      const hoverIndex = indexBox;
 
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
@@ -66,7 +66,7 @@ const Box = ({ id, text, index, moveBox, tasks }) => {
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.BOX,
     item: () => {
-      return { id, index };
+      return { id, indexBox };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -87,15 +87,18 @@ const Box = ({ id, text, index, moveBox, tasks }) => {
   });
   dropTask(boxRef);
 
-  const renderTask = useCallback((task) => {
+  const renderTask = useCallback((task, indexTask) => {
     return (
       <Task
         key={task.id}
+        indexBox={indexBox}
+        indexTask={indexTask}
         description={task.description}
         duration={task.duration}
+        moveTask={moveTask}
       />
     );
-  }, []);
+  }, [moveTask, indexBox]);
 
   return (
     <div ref={boxRef} style={{...style, opacity }} data-handler-id={handlerId}>

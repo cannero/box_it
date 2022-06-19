@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import update from 'immutability-helper';
 import Box from './Box';
 import { BoardService } from './BoardService';
 const style = {
@@ -10,12 +9,12 @@ function Board() {
   const [boxes, setBoxes] = useState(BoardService.getBoard());
   const moveBox = useCallback((dragIndex, hoverIndex) => {
     setBoxes((prevBoxes) =>
-      update(prevBoxes, {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, prevBoxes[dragIndex]],
-        ],
-      }),
+      BoardService.moveBox(prevBoxes, dragIndex, hoverIndex)
+    )
+  }, []);
+  const moveTask = useCallback((dragIndexBox, dragIndexTask, hoverIndexBox, hoverIndexTask) => {
+    setBoxes((prevBoxes) =>
+      BoardService.moveTask(prevBoxes, dragIndexBox, dragIndexTask, hoverIndexBox, hoverIndexTask)
     )
   }, []);
   const renderBox = useCallback((box, index) => {
@@ -27,9 +26,10 @@ function Board() {
         text={box.description}
         moveBox={moveBox}
         tasks={box.tasks}
+        moveTask={moveTask}
       />
     );
-  }, [moveBox]);
+  }, [moveBox, moveTask]);
 
   return (
     <>

@@ -9,7 +9,7 @@ const style = {
   cursor: 'grab',
 };
 
-export const Task= ({ id, description, duration }) => {
+export const Task= ({ id, indexBox, indexTask, description, duration, moveTask }) => {
   const taskRef = useRef(null);
 
   const [{canDrop, isOver}, drop] = useDrop({
