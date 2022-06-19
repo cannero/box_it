@@ -7,11 +7,13 @@ Simple card movement react app
 
 ## Doing
 - implemented https://react-dnd.github.io/react-dnd/examples/sortable/simple
+- https://medium.com/litslink/react-dnd-in-examples-ce509b25839d, https://codesandbox.io/s/react-dnd-example-try06?from-embed=&file=/src/App.jsx
 # Tried
 - used asseinfo/react-kanban
   beautiful-dnd not maintained any more
 # Todo
 - check for rake abort status
+- don't pass drop status to Box if over Task
 ## Drag and drop
 - https://github.com/atlassian/react-beautiful-dnd not maintained any more
 - https://github.com/react-dnd/react-dnd

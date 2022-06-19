@@ -1,4 +1,17 @@
+import update from 'immutability-helper';
+
 export const BoardService = {
+  spliceBoxes: function(board, prevIndex, newIndex){
+    return update(board, {
+      $splice: [
+        [prevIndex, 1],
+        [newIndex, 0, board[prevIndex]],
+      ],
+    });
+  },
+  getBoard: function(){
+      return this.initialBoard;
+  },
   initialBoard: [
       {
         id: 1,
@@ -30,9 +43,6 @@ export const BoardService = {
         description: "box 3",
         tasks: []
       },
-    ],
-    getBoard: function(){
-      return this.initialBoard;
-    }
+    ]
 }
 

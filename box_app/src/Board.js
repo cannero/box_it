@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 import Box from './Box';
 import { BoardService } from './BoardService';
 const style = {
-  width: 400,
+  width: 350,
 }
 
 function Board() {
@@ -26,9 +26,10 @@ function Board() {
         id={box.id}
         text={box.description}
         moveBox={moveBox}
+        tasks={box.tasks}
       />
     );
-  }, []);
+  }, [moveBox]);
 
   return (
     <>

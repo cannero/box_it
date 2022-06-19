@@ -1,15 +1,19 @@
-import { useRef } from 'react';
+import { useRef, useCallback } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { ItemTypes } from './ItemTypes.js';
+import { ItemTypes } from './ItemTypes';
+import { Task } from './Task';
 const style = {
   border: '1px dashed gray',
   padding: '0.5rem 1rem',
   marginBottom: '.5rem',
   backgroundColor: 'white',
   cursor: 'move',
-}
+};
+const styleTasks = {
+  width: 300,
+};
 
-const Box = ({ id, text, index, moveBox}) => {
+const Box = ({ id, text, index, moveBox, tasks }) => {
   const boxRef = useRef(null);
   const [{ handlerId}, drop] = useDrop({
     accept: ItemTypes.BOX,
@@ -70,9 +74,34 @@ const Box = ({ id, text, index, moveBox}) => {
   });
   const opacity = isDragging ? 0 : 1;
   drag(drop(boxRef));
+
+  const [{taskIsOver}, dropTask] = useDrop({
+    accept: ItemTypes.TASK,
+    drop: () => ({id}),
+    collect(monitor){
+      return {
+        taskIsOver: monitor.isOver(),
+        canDropTask: monitor.canDrop(),
+      }
+    },
+  });
+  dropTask(boxRef);
+
+  const renderTask = useCallback((task) => {
+    return (
+      <Task
+        key={task.id}
+        description={task.description}
+        duration={task.duration}
+      />
+    );
+  }, []);
+
   return (
     <div ref={boxRef} style={{...style, opacity }} data-handler-id={handlerId}>
       {text}
+      <div style={styleTasks}>{tasks.map((t) => renderTask(t))}</div>
+      <div>{taskIsOver ? "go away" : "hello?"}</div>
     </div>
   );
 };

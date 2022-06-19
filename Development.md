@@ -3,4 +3,6 @@ npx create-react-app
 # Run
 - start with rake
 ## wsl
-- access from wsl ip `ip addr show`
+depending on windows version
+- access from windows with localhost:3000
+- access with wsl ip `ip addr show`

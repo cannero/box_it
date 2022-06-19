@@ -8,6 +8,14 @@ task :run do
   end
 end
 
+task :test do
+  sh "sudo docker-compose run --rm dev_react npm test" do |ok, res|
+    if !ok && res.exitstatus != 130
+      puts "failed with <#{res}>"
+    end
+  end
+end
+
 task :devel do
   sh "sudo docker-compose run --service-ports --rm dev_react bash" do |ok, res|
     if ok || res.exitstatus == 130
