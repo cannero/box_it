@@ -14,6 +14,7 @@ Simple card movement react app
 # Todo
 - check for rake abort status
 - don't pass drop status to Box if over Task
+- is initialBoard modified or is a copy made
 ## Drag and drop
 - https://github.com/atlassian/react-beautiful-dnd not maintained any more
 - https://github.com/react-dnd/react-dnd

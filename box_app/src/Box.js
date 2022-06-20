@@ -1,7 +1,7 @@
-import { useRef, useCallback } from 'react';
+import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
-import { Task } from './Task';
+import TaskList from './TaskList';
 const style = {
   border: '1px dashed gray',
   padding: '0.5rem 1rem',
@@ -9,13 +9,10 @@ const style = {
   backgroundColor: 'white',
   cursor: 'move',
 };
-const styleTasks = {
-  width: 300,
-};
 
 const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
   const boxRef = useRef(null);
-  const [{ handlerId}, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.BOX,
     collect(monitor) {
       return {
@@ -27,9 +24,8 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
         return;
       }
 
-      const dragIndex = item.index;
+      const dragIndex = item.indexBox;
       const hoverIndex = indexBox;
-
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return;
@@ -60,7 +56,7 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
-      item.index = hoverIndex;
+      item.indexBox = hoverIndex;
     },
   });
   const [{ isDragging }, drag] = useDrag({
@@ -75,36 +71,14 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
   const opacity = isDragging ? 0 : 1;
   drag(drop(boxRef));
 
-  const [{taskIsOver}, dropTask] = useDrop({
-    accept: ItemTypes.TASK,
-    drop: () => ({id}),
-    collect(monitor){
-      return {
-        taskIsOver: monitor.isOver(),
-        canDropTask: monitor.canDrop(),
-      }
-    },
-  });
-  dropTask(boxRef);
-
-  const renderTask = useCallback((task, indexTask) => {
-    return (
-      <Task
-        key={task.id}
-        indexBox={indexBox}
-        indexTask={indexTask}
-        description={task.description}
-        duration={task.duration}
-        moveTask={moveTask}
-      />
-    );
-  }, [moveTask, indexBox]);
-
   return (
     <div ref={boxRef} style={{...style, opacity }} data-handler-id={handlerId}>
       {text}
-      <div style={styleTasks}>{tasks.map((t) => renderTask(t))}</div>
-      <div>{taskIsOver ? "go away" : "hello?"}</div>
+      <TaskList
+        indexBox={indexBox}
+        tasks={tasks}
+        moveTask={moveTask}
+      />
     </div>
   );
 };

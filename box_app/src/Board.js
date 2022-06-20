@@ -21,7 +21,7 @@ function Board() {
     return (
       <Box
         key={box.id}
-        index={index}
+        indexBox={index}
         id={box.id}
         text={box.description}
         moveBox={moveBox}
