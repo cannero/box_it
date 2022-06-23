@@ -1,0 +1,8 @@
+.Box-header {
+  display: flex;
+  justify-content: center;
+}
+.Box-header .Header-column {
+  padding: '5rem 5rem';
+  margin: 0.1rem 1rem 0.2rem 1rem;
+}

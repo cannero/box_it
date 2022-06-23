@@ -1,7 +1,7 @@
 import update from 'immutability-helper';
 
 export const BoardService = {
-  moveBox: function(board, prevIndex, newIndex){
+  moveBox: function(board, prevIndex, newIndex) {
     return update(board, {
       $splice: [
         [prevIndex, 1],
@@ -9,7 +9,7 @@ export const BoardService = {
       ],
     });
   },
-  moveTask: function(board, prevBoxIndex, prevTaskIndex, newBoxIndex, newTaskIndex){
+  moveTask: function(board, prevBoxIndex, prevTaskIndex, newBoxIndex, newTaskIndex) {
     if (prevBoxIndex === newBoxIndex){
       return update(board, {
         [newBoxIndex]: {tasks: {$splice: [
@@ -29,8 +29,12 @@ export const BoardService = {
       });
     }
   },
-  getBoard: function(){
-      return this.initialBoard;
+  getBoard: function() {
+    return this.initialBoard;
+  },
+  getTotalDuration: function(tasks) {
+    return tasks.reduce((acc, task) => acc + task.duration, 0);
+
   },
   initialBoard: [
       {

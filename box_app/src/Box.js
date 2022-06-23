@@ -1,7 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import TaskList from './TaskList';
+import { BoardService } from './BoardService';
+import './Box.css';
 const style = {
   border: '1px dashed gray',
   padding: '0.5rem 1rem',
@@ -71,9 +73,14 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
   const opacity = isDragging ? 0 : 1;
   drag(drop(boxRef));
 
+  const totalDuration = useMemo(() => BoardService.getTotalDuration(tasks), [tasks] );
+
   return (
     <div ref={boxRef} style={{...style, opacity }} data-handler-id={handlerId}>
-      {text}
+      <div className='Box-header'>
+        <div className='Header-column'>{text}</div>
+        <div className='Header-column'>total: {totalDuration}</div>
+      </div>
       <TaskList
         indexBox={indexBox}
         tasks={tasks}

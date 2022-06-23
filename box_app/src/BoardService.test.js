@@ -182,3 +182,28 @@ it('moves task between boxes', () => {
   expect(BoardService.moveTask(board, boxIndexFrom, taskIndexFrom, boxIndexTo, taskIndexTo))
     .toEqual(boardTaskMovedFrom2To1);
 });
+
+test('duration is summed correctly', () => {
+  const tasks = [
+      {
+        id: 'task1',
+        duration: 1.2,
+      },
+      {
+        id: 'task3',
+        duration: 0.1,
+      },
+      {
+        id: 'task2',
+        duration: 2.2,
+      },
+    ];
+
+  expect(BoardService.getTotalDuration(tasks)).toBeCloseTo(3.5);
+});
+
+test('duration for empty tasks is zero', () => {
+  const emptyTasks = [ ];
+
+  expect(BoardService.getTotalDuration(emptyTasks)).toBeCloseTo(0);
+});
