@@ -1,9 +1,7 @@
 import { useCallback, useState } from 'react';
 import Box from './Box';
 import { BoardService } from './BoardService';
-const style = {
-  width: 350,
-}
+import './assets/Board.css';
 
 function Board() {
   const [boxes, setBoxes] = useState(BoardService.getBoard());
@@ -32,9 +30,9 @@ function Board() {
   }, [moveBox, moveTask]);
 
   return (
-    <>
-      <div style={style}>{boxes.map((box, i) => renderBox(box, i))}</div>
-    </>
+    <div className='Board'>
+      {boxes.map((box, i) => renderBox(box, i))}
+    </div>
   );
 };
 

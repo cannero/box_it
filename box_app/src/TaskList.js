@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import { Task } from './Task';
 import { ItemTypes } from './ItemTypes';
-
+import './assets/TaskList.css';
 const styleTasks = {
   width: 300,
 };
@@ -49,7 +49,7 @@ const TaskList = ({ indexBox, tasks, moveTask }) => {
   }, [moveTask, indexBox]);
 
   return (
-    <div ref={drop}>
+    <div ref={drop} className='TaskList'>
       <div>Tasks</div>
       <div style={{styleTasks}}>{tasks.map((t, i) => renderTask(t, i))}</div>
     </div>
