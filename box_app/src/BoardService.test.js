@@ -207,3 +207,62 @@ test('duration for empty tasks is zero', () => {
 
   expect(BoardService.getTotalDuration(emptyTasks)).toBeCloseTo(0);
 });
+
+test('duration is changed', () => {
+  const board = [
+    {
+      id: 'box1',
+      tasks: [
+      ],
+    },
+    {
+      id: 'box2',
+      tasks: [
+        {
+          id: 'task1',
+          duration: 1.3,
+        },
+        {
+          id: 'task2',
+          duration: 3.3,
+        },
+        {
+          id: 'task3',
+          duration: 2.5,
+        },
+      ],
+    }
+  ];
+
+  const boardDurationChanged = [
+    {
+      id: 'box1',
+      tasks: [
+      ],
+    },
+    {
+      id: 'box2',
+      tasks: [
+        {
+          id: 'task1',
+          duration: 1.3,
+        },
+        {
+          id: 'task2',
+          duration: 3.3,
+        },
+        {
+          id: 'task3',
+          duration: 9.4,
+        },
+      ],
+    }
+  ];
+
+  const indexBox = 1;
+  const indexTask = 2;
+  const duration = 9.4;
+
+  expect(BoardService.setTaskDuration(board, indexBox, indexTask, duration))
+    .toEqual(boardDurationChanged);
+});

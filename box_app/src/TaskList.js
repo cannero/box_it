@@ -7,7 +7,7 @@ const styleTasks = {
   width: 300,
 };
 
-const TaskList = ({ indexBox, tasks, moveTask }) => {
+const TaskList = ({ indexBox, tasks, moveTask, onDurationChange }) => {
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.TASK,
@@ -44,9 +44,10 @@ const TaskList = ({ indexBox, tasks, moveTask }) => {
         description={task.description}
         duration={task.duration}
         moveTask={moveTask}
+        onDurationChange={onDurationChange}
       />
     );
-  }, [moveTask, indexBox]);
+  }, [moveTask, indexBox, onDurationChange]);
 
   return (
     <div ref={drop} className='TaskList'>

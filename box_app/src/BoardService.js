@@ -36,6 +36,11 @@ export const BoardService = {
     return tasks.reduce((acc, task) => acc + task.duration, 0);
 
   },
+  setTaskDuration: function(board, indexBox, indexTask, newDuration) {
+    return update(board, {
+      [indexBox]: {tasks: {[indexTask]: {duration: {$set: newDuration}}}}
+    });
+  },
   initialBoard: [
       {
         id: 1,

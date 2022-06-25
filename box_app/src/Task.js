@@ -1,15 +1,10 @@
 import { useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
-const style = {
-  border: '1px dashed gray',
-  padding: '0.5rem 1rem',
-  marginBottom: '.5rem',
-  backgroundColor: 'white',
-  cursor: 'grab',
-};
+import './assets/Task.css';
 
-export const Task= ({ id, indexBox, indexTask, description, duration, moveTask }) => {
+export const Task= ({ id, indexBox, indexTask, description, duration,
+  moveTask, onDurationChange }) => {
   const taskRef = useRef(null);
 
   const [{ handlerId }, drop] = useDrop({
@@ -72,11 +67,28 @@ export const Task= ({ id, indexBox, indexTask, description, duration, moveTask }
   const opacity = isDragging ? 0 : 1;
   drag(drop(taskRef));
 
+  const handleDurationTextChange = (e) => {
+    const floatValue = e.target.valueAsNumber;
+    if (isNaN(floatValue) || !isFinite(floatValue) ||
+        floatValue < 0) {
+      return;
+    }
+    onDurationChange(indexBox, indexTask, floatValue);
+  };
+
   return (
-    <div ref={taskRef} style={{ ...style, opacity}} data-handler-id={handlerId}>
+    <div className='Task' ref={taskRef}
+      style={{ opacity }} data-handler-id={handlerId}>
       {description}
       <br/>
-      duration: {duration}
+      <label>Duration:</label>
+      <input className='TaskDurationInput'
+        type='number'
+        min='0'
+        step='0.5'
+        value={duration}
+        onChange={handleDurationTextChange}
+      />
     </div>
   );
 };

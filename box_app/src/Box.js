@@ -5,7 +5,7 @@ import TaskList from './TaskList';
 import { BoardService } from './BoardService';
 import './assets/Box.css';
 
-const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
+const Box = ({ id, text, indexBox, moveBox, tasks, moveTask, onDurationChange }) => {
   const boxRef = useRef(null);
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.BOX,
@@ -78,6 +78,7 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask }) => {
         indexBox={indexBox}
         tasks={tasks}
         moveTask={moveTask}
+        onDurationChange={onDurationChange}
       />
     </div>
   );

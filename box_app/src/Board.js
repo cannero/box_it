@@ -15,6 +15,11 @@ function Board() {
       BoardService.moveTask(prevBoxes, dragIndexBox, dragIndexTask, hoverIndexBox, hoverIndexTask)
     )
   }, []);
+  const handleDurationChange = useCallback((indexBox, indexTask, newDuration) => {
+    setBoxes((prevBoxes) =>
+      BoardService.setTaskDuration(prevBoxes, indexBox, indexTask, newDuration)
+    )
+  }, []);
   const renderBox = useCallback((box, index) => {
     return (
       <Box
@@ -25,9 +30,10 @@ function Board() {
         moveBox={moveBox}
         tasks={box.tasks}
         moveTask={moveTask}
+        onDurationChange={handleDurationChange}
       />
     );
-  }, [moveBox, moveTask]);
+  }, [moveBox, moveTask, handleDurationChange]);
 
   return (
     <div className='Board'>

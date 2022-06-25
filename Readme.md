@@ -13,8 +13,10 @@ Simple card movement react app
   beautiful-dnd not maintained any more
 # Todo
 - check for rake abort status
-- don't pass drop status to Box if over Task
 - is initialBoard modified or is a copy made
+- input for all fields
+- import/export board
+- layout
 ## Drag and drop
 - https://github.com/atlassian/react-beautiful-dnd not maintained any more
 - https://github.com/react-dnd/react-dnd
