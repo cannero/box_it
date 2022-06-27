@@ -16,6 +16,9 @@ Simple card movement react app
 - is initialBoard modified or is a copy made
 - input for all fields
 - import/export board
+  - https://github.com/react-dropzone/react-dropzone/
+  - https://bobbyhadz.com/blog/react-open-file-input-on-button-click
+  - https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications
 - layout
 ## Drag and drop
 - https://github.com/atlassian/react-beautiful-dnd not maintained any more
