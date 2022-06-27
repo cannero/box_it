@@ -34,13 +34,27 @@ export const BoardService = {
   },
   getTotalDuration: function(tasks) {
     return tasks.reduce((acc, task) => acc + task.duration, 0);
-
   },
   setTaskDuration: function(board, indexBox, indexTask, newDuration) {
     return update(board, {
       [indexBox]: {tasks: {[indexTask]: {duration: {$set: newDuration}}}}
     });
   },
+  prepareExport: function(board) {
+    return {
+      version: this.version,
+      board: board,
+    };
+  },
+  getBoxesFromImport: function(state) {
+    if (state === undefined || state.version !== this.version ||
+      state.board === undefined) {
+      console.log('not a valid import: ', state);
+      return null;
+    }
+    return state.board;
+  },
+  version: 0.1,
   initialBoard: [
       {
         id: 1,

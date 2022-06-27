@@ -1,11 +1,12 @@
 import { useRef } from 'react';
 
-function ExportImportComponent() {
+function ExportImportComponent({ getStateForExport, importState }) {
 
   const inputImportRef = useRef(null);
   
   const exportFile = async () => {
-    const myData = {fdsdf:"re",kle:123};
+    console.log(getStateForExport);
+    const myData = getStateForExport();
     const fileName = "file";
     const json = JSON.stringify(myData);
     const blob = new Blob([json],{type:'application/json'});
@@ -31,10 +32,10 @@ function ExportImportComponent() {
     }
     const reader = new FileReader();
     reader.onload = function(evt) {
-      console.log('file read: ', evt.target.result);
+      const importedJson = JSON.parse(evt.target.result);
+      importState(importedJson);
     };
     reader.readAsText(fileObj);
-    console.log('fileObj is', fileObj);
 
     event.target.value = null;
   };

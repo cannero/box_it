@@ -266,3 +266,62 @@ test('duration is changed', () => {
   expect(BoardService.setTaskDuration(board, indexBox, indexTask, duration))
     .toEqual(boardDurationChanged);
 });
+
+test('export adds version', () => {
+  const board = [
+    {
+      id: 'box1',
+      tasks: [
+      ],
+    },
+  ];
+
+  const exportBoard = {
+    version: 0.1,
+    board: [
+      {
+        id: 'box1',
+        tasks: [
+        ],
+      },
+    ],
+  };
+  expect(BoardService.prepareExport(board)).toEqual(exportBoard);
+});
+
+test('get boxes from import checks version', () => {
+  const importState = {
+    NoVersionDefined: 'nono',
+    boxes: [
+     {
+        id: 'box1',
+        tasks: [
+        ],
+      },
+    ],
+  };
+
+  expect(BoardService.getBoxesFromImport(importState)).toEqual(null);
+});
+
+test('get boxes from import returns board', () => {
+  const importState = {
+    version: 0.1,
+    board: [
+     {
+        id: 'box1',
+        tasks: [
+        ],
+      },
+    ],
+  };
+
+  const board = [
+   {
+      id: 'box1',
+      tasks: [
+      ],
+    },
+  ];
+  expect(BoardService.getBoxesFromImport(importState)).toEqual(board);
+});
