@@ -35,9 +35,19 @@ export const BoardService = {
   getTotalDuration: function(tasks) {
     return tasks.reduce((acc, task) => acc + task.duration, 0);
   },
+  setBoxDescription: function(board, indexBox, newDescription) {
+    return update(board, {
+      [indexBox]: {description: {$set: newDescription}}
+    });
+  },
   setTaskDuration: function(board, indexBox, indexTask, newDuration) {
     return update(board, {
       [indexBox]: {tasks: {[indexTask]: {duration: {$set: newDuration}}}}
+    });
+  },
+  setTaskDescription: function(board, indexBox, indexTask, newDescription) {
+    return update(board, {
+      [indexBox]: {tasks: {[indexTask]: {description: {$set: newDescription}}}}
     });
   },
   prepareExport: function(board) {

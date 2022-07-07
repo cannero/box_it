@@ -7,9 +7,9 @@ const styleTasks = {
   width: 300,
 };
 
-const TaskList = ({ indexBox, tasks, moveTask, onDurationChange }) => {
+const TaskList = ({ indexBox, tasks, moveTask, onDataChange }) => {
 
-  const [{ isOver }, drop] = useDrop({
+  const [ , drop] = useDrop({
     accept: ItemTypes.TASK,
     hover(item, monitor) {
       if (!monitor.isOver({ shallow: true })){
@@ -29,9 +29,6 @@ const TaskList = ({ indexBox, tasks, moveTask, onDurationChange }) => {
       item.indexBox = indexBox;
       item.indexTask = 0;
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver({ shallow: true }),
-    }),
   });
 
   const renderTask = useCallback((task, indexTask) => {
@@ -44,10 +41,10 @@ const TaskList = ({ indexBox, tasks, moveTask, onDurationChange }) => {
         description={task.description}
         duration={task.duration}
         moveTask={moveTask}
-        onDurationChange={onDurationChange}
+        onDataChange={onDataChange}
       />
     );
-  }, [moveTask, indexBox, onDurationChange]);
+  }, [moveTask, indexBox, onDataChange]);
 
   return (
     <div ref={drop} className='TaskList'>

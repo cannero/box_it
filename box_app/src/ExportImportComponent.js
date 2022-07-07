@@ -57,7 +57,7 @@ function ExportImportComponent({ getStateForExport, importState }) {
         </button>
       </div>
       <div>
-        Export your data if you want to use it on another PC or save it, the board is kept only in the local storage of your browser.
+        Export your data if you want to use it on another PC or to save it, the board is kept only in the local storage of your browser.
       </div>
     </div>
   );

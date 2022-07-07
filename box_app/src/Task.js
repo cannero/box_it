@@ -4,7 +4,7 @@ import { ItemTypes } from './ItemTypes';
 import './assets/Task.css';
 
 export const Task= ({ id, indexBox, indexTask, description, duration,
-  moveTask, onDurationChange }) => {
+  moveTask, onDataChange }) => {
   const taskRef = useRef(null);
 
   const [{ handlerId }, drop] = useDrop({
@@ -73,7 +73,7 @@ export const Task= ({ id, indexBox, indexTask, description, duration,
         floatValue < 0) {
       return;
     }
-    onDurationChange(indexBox, indexTask, floatValue);
+    onDataChange.onTaskDurationChange(indexBox, indexTask, floatValue);
   };
 
   return (

@@ -3,9 +3,10 @@ import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import TaskList from './TaskList';
 import { BoardService } from './BoardService';
+import DescriptionField from './DescriptionField';
 import './assets/Box.css';
 
-const Box = ({ id, text, indexBox, moveBox, tasks, moveTask, onDurationChange }) => {
+const Box = ({ id, text, indexBox, moveBox, tasks, moveTask, onDataChange }) => {
   const boxRef = useRef(null);
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.BOX,
@@ -71,14 +72,17 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask, onDurationChange })
   return (
     <div ref={boxRef} style={{ opacity }} data-handler-id={handlerId} className='Box'>
       <div className='Box-header'>
-        <div className='Header-column'>{text}</div>
+        <DescriptionField
+          description={text}
+          onDescriptionChange={(e) => onDataChange.onBoxDescriptionChange(indexBox, e.target.value)}
+        />
         <div className='Header-column'>total: {totalDuration}</div>
       </div>
       <TaskList
         indexBox={indexBox}
         tasks={tasks}
         moveTask={moveTask}
-        onDurationChange={onDurationChange}
+        onDataChange={onDataChange}
       />
     </div>
   );

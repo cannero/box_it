@@ -20,6 +20,8 @@ Simple card movement react app
   - https://bobbyhadz.com/blog/react-open-file-input-on-button-click
   - https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications
 - layout
+  - :root{
+- https://www.freecodecamp.org/news/best-practices-for-react/
 ## Drag and drop
 - https://github.com/atlassian/react-beautiful-dnd not maintained any more
 - https://github.com/react-dnd/react-dnd

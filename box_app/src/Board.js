@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import Box from './Box';
 import './assets/Board.css';
+import plus from './assets/plus.png';
 
-function Board({ boxes, moveBox, moveTask, onDurationChange }) {
+function Board({ boxes, moveBox, moveTask, onDataChange }) {
 
   const renderBox = useCallback((box, index) => {
     return (
@@ -14,14 +15,19 @@ function Board({ boxes, moveBox, moveTask, onDurationChange }) {
         moveBox={moveBox}
         tasks={box.tasks}
         moveTask={moveTask}
-        onDurationChange={onDurationChange}
+        onDataChange={onDataChange}
       />
     );
-  }, [moveBox, moveTask, onDurationChange]);
+  }, [moveBox, moveTask, onDataChange]);
 
   return (
     <div className='Board'>
       {boxes.map((box, i) => renderBox(box, i))}
+      <div className='BoxAdd'>
+        <button>
+          <img src={plus} alt="add a box"/>
+        </button>
+      </div>
     </div>
   );
 };

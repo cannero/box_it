@@ -208,6 +208,15 @@ test('duration for empty tasks is zero', () => {
   expect(BoardService.getTotalDuration(emptyTasks)).toBeCloseTo(0);
 });
 
+test('changes box description', () => {
+  const indexBox = 1;
+  const newDescription = 'new box 2 description';
+
+  const changedBoard = BoardService.setBoxDescription(getInitialBoard(), indexBox, newDescription);
+  console.log(changedBoard);
+  expect(changedBoard[indexBox].description).toEqual(newDescription);
+});
+
 test('duration is changed', () => {
   const board = [
     {
@@ -265,6 +274,15 @@ test('duration is changed', () => {
 
   expect(BoardService.setTaskDuration(board, indexBox, indexTask, duration))
     .toEqual(boardDurationChanged);
+});
+
+test('changes task description', () => {
+  const indexBox = 1;
+  const indexTask = 2;
+  const newDescription = 'new task 3 description';
+
+  const changedBoard = BoardService.setTaskDescription(getInitialBoard(), indexBox, indexTask, newDescription);
+  expect(changedBoard[indexBox].tasks[indexTask].description).toEqual(newDescription);
 });
 
 test('export adds version', () => {
@@ -325,3 +343,36 @@ test('get boxes from import returns board', () => {
   ];
   expect(BoardService.getBoxesFromImport(importState)).toEqual(board);
 });
+
+const getInitialBoard = () => {
+  const board = [
+    {
+      id: 'box1',
+      description: 'descr box 1',
+      tasks: [
+      ],
+    },
+    {
+      id: 'box2',
+      description: 'descr box 2',
+      tasks: [
+        {
+          id: 'task1',
+          description: 'descr task 1',
+          duration: 1.3,
+        },
+        {
+          id: 'task2',
+          description: 'descr task 2',
+          duration: 3.3,
+        },
+        {
+          id: 'task3',
+          description: 'descr task 3',
+          duration: 2.5,
+        },
+      ],
+    }
+  ];
+  return board;
+};

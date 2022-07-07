@@ -3,3 +3,14 @@
   flex-direction: row;
   justify-content: space-around;
 }
+
+.BoxAdd {
+  width: 100px;
+  margin: 0.5rem 0.5rem;
+  justify-content: center;
+}
+
+.BoxAddButton {
+  border: 2px solid blue;
+  margin: 5px;
+}
