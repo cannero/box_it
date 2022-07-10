@@ -344,6 +344,34 @@ test('get boxes from import returns board', () => {
   expect(BoardService.getBoxesFromImport(importState)).toEqual(board);
 });
 
+test('a new box with an id is added', () => {
+  const emptyBoard = [];
+  const boardWithBoxAdded = BoardService.addBox(emptyBoard);
+  expect(boardWithBoxAdded.length).toEqual(1);
+  expect(boardWithBoxAdded[0].id).toEqual(expect.stringContaining('-'));
+});
+
+test('box is removed', () => {
+  const indexBox = 0;
+  const boardWithBoxRemoved = BoardService.removeBox(getInitialBoard(), indexBox);
+  expect(boardWithBoxRemoved[0].id).toEqual('box2');
+});
+
+test('a new task with an id is added', () => {
+  const indexBox = 0;
+  const boardWithTaskAdded = BoardService.addTask(getInitialBoard(), indexBox);
+  expect(boardWithTaskAdded[indexBox].tasks.length).toEqual(1);
+  expect(boardWithTaskAdded[0].tasks[0].id).toEqual(expect.stringContaining('-'));
+});
+
+test('task is removed', () => {
+  const indexBox = 1;
+  const indexTask = 1;
+  const boardWithTaskRemoved = BoardService.removeTask(getInitialBoard(), indexBox, indexTask);
+  expect(boardWithTaskRemoved[indexBox].tasks[0].id).toEqual('task1');
+  expect(boardWithTaskRemoved[indexBox].tasks[1].id).toEqual('task3');
+});
+
 const getInitialBoard = () => {
   const board = [
     {

@@ -3,8 +3,8 @@ import { useDrop, useDrag } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import './assets/Task.css';
 
-export const Task= ({ id, indexBox, indexTask, description, duration,
-  moveTask, onDataChange }) => {
+export const Task= ({ id, task, indexBox, indexTask, moveTask, onDataChange,
+  onAddOrRemove }) => {
   const taskRef = useRef(null);
 
   const [{ handlerId }, drop] = useDrop({
@@ -58,7 +58,7 @@ export const Task= ({ id, indexBox, indexTask, description, duration,
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.TASK,
     item: () => {
-      return { id, indexBox, indexTask };
+      return { id: task.id, indexBox, indexTask };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -79,14 +79,19 @@ export const Task= ({ id, indexBox, indexTask, description, duration,
   return (
     <div className='Task' ref={taskRef}
       style={{ opacity }} data-handler-id={handlerId}>
-      {description}
+      <button
+        onClick={() => onAddOrRemove.onTaskRemove(indexBox, indexTask)}
+        className='ButtonRemove'>
+        X
+      </button>
+      {task.description}
       <br/>
       <label>Duration:</label>
       <input className='TaskDurationInput'
         type='number'
         min='0'
         step='0.5'
-        value={duration}
+        value={task.duration}
         onChange={handleDurationTextChange}
       />
     </div>

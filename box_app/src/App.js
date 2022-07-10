@@ -40,6 +40,30 @@ function App() {
     )
   }, []);
 
+  const handleAddBox = useCallback(() => {
+    setBoxes((prevBoxes) =>
+      BoardService.addBox(prevBoxes)
+    )
+  }, []);
+
+  const handleRemoveBox = useCallback((indexBox) => {
+    setBoxes((prevBoxes) =>
+      BoardService.removeBox(prevBoxes, indexBox)
+    )
+  }, []);
+
+  const handleAddTask = useCallback((indexBox) => {
+    setBoxes((prevBoxes) =>
+      BoardService.addTask(prevBoxes, indexBox)
+    )
+  }, []);
+
+  const handleRemoveTask = useCallback((indexBox, indexTask) => {
+    setBoxes((prevBoxes) =>
+      BoardService.removeTask(prevBoxes, indexBox, indexTask)
+    )
+  }, []);
+
   const getStateForExport = useCallback(() => {
     return BoardService.prepareExport(boxes);
   }, [boxes]);
@@ -58,6 +82,13 @@ function App() {
     onTaskDurationChange: handleTaskDurationChange,
   };
 
+  const onAddOrRemove = {
+    onBoxAdd: handleAddBox,
+    onBoxRemove: handleRemoveBox,
+    onTaskAdd: handleAddTask,
+    onTaskRemove: handleRemoveTask,
+  };
+
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
@@ -66,6 +97,7 @@ function App() {
           moveBox={moveBox}
           moveTask={moveTask}
           onDataChange={onDataChange}
+          onAddOrRemove={onAddOrRemove}
         />
       </DndProvider>
       <ExportImportComponent

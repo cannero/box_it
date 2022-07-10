@@ -3,29 +3,29 @@ import Box from './Box';
 import './assets/Board.css';
 import plus from './assets/plus.png';
 
-function Board({ boxes, moveBox, moveTask, onDataChange }) {
+function Board({ boxes, moveBox, moveTask, onDataChange, onAddOrRemove }) {
 
   const renderBox = useCallback((box, index) => {
     return (
       <Box
         key={box.id}
         indexBox={index}
-        id={box.id}
-        text={box.description}
+        box={box}
         moveBox={moveBox}
-        tasks={box.tasks}
         moveTask={moveTask}
         onDataChange={onDataChange}
+        onAddOrRemove={onAddOrRemove}
       />
     );
-  }, [moveBox, moveTask, onDataChange]);
+  }, [moveBox, moveTask, onDataChange, onAddOrRemove]);
 
   return (
     <div className='Board'>
       {boxes.map((box, i) => renderBox(box, i))}
       <div className='BoxAdd'>
-        <button>
+        <button onClick={() => onAddOrRemove.onBoxAdd()}>
           <img src={plus} alt="add a box"/>
+          <div>Add a box</div>
         </button>
       </div>
     </div>

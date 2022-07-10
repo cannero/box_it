@@ -7,10 +7,15 @@ const styleTasks = {
   width: 300,
 };
 
-const TaskList = ({ indexBox, tasks, moveTask, onDataChange }) => {
+const TaskList = ({ indexBox, tasks, moveTask, onDataChange, onAddOrRemove }) => {
 
-  const [ , drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.TASK,
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      }
+    },
     hover(item, monitor) {
       if (!monitor.isOver({ shallow: true })){
         return;
@@ -35,20 +40,26 @@ const TaskList = ({ indexBox, tasks, moveTask, onDataChange }) => {
     return (
       <Task
         key={task.id}
-        id={task.id}
+        task={task}
         indexBox={indexBox}
         indexTask={indexTask}
-        description={task.description}
-        duration={task.duration}
         moveTask={moveTask}
         onDataChange={onDataChange}
+        onAddOrRemove={onAddOrRemove}
       />
     );
-  }, [moveTask, indexBox, onDataChange]);
+  }, [moveTask, indexBox, onDataChange, onAddOrRemove]);
 
   return (
-    <div ref={drop} className='TaskList'>
-      <div>Tasks</div>
+    <div ref={drop} className='TaskList' data-handler-id={handlerId}>
+      <div>
+        <div>Tasks</div>
+        <button
+          onClick={() => onAddOrRemove.onTaskAdd(indexBox)}
+          className='AddTask'>
+          +
+        </button>
+      </div>
       <div style={{styleTasks}}>{tasks.map((t, i) => renderTask(t, i))}</div>
     </div>
   );  

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper';
 
 export const BoardService = {
@@ -49,6 +50,24 @@ export const BoardService = {
     return update(board, {
       [indexBox]: {tasks: {[indexTask]: {description: {$set: newDescription}}}}
     });
+  },
+  addBox: function(board) {
+    const newBox = {id: uuidv4(), description: '', tasks: []};
+    return update(board, {$push: [newBox]});
+  },
+  removeBox: function(board, indexBox) {
+    return update(board, {$splice: [
+        [indexBox, 1]
+    ]});
+  },
+  addTask: function(board, indexBox) {
+    const newTask = {id: uuidv4(), description: '', duration: 0};
+    return update(board, {[indexBox]: {tasks: {$push: [newTask]}}});
+  },
+  removeTask: function(board, indexBox, indexTask) {
+    return update(board, {[indexBox]: {tasks: {$splice: [
+      [indexTask, 1]
+    ]}}});
   },
   prepareExport: function(board) {
     return {

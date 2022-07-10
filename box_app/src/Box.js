@@ -6,7 +6,7 @@ import { BoardService } from './BoardService';
 import DescriptionField from './DescriptionField';
 import './assets/Box.css';
 
-const Box = ({ id, text, indexBox, moveBox, tasks, moveTask, onDataChange }) => {
+const Box = ({ id, indexBox, box, moveBox, moveTask, onDataChange, onAddOrRemove }) => {
   const boxRef = useRef(null);
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.BOX,
@@ -58,7 +58,7 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask, onDataChange }) => 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.BOX,
     item: () => {
-      return { id, indexBox };
+      return { id: box.id, indexBox };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -67,22 +67,30 @@ const Box = ({ id, text, indexBox, moveBox, tasks, moveTask, onDataChange }) => 
   const opacity = isDragging ? 0 : 1;
   drag(drop(boxRef));
 
-  const totalDuration = useMemo(() => BoardService.getTotalDuration(tasks), [tasks] );
+  const totalDuration = useMemo(() => BoardService.getTotalDuration(box.tasks), [box.tasks] );
 
   return (
     <div ref={boxRef} style={{ opacity }} data-handler-id={handlerId} className='Box'>
+      <button
+        onClick={() => onAddOrRemove.onBoxRemove(indexBox)}
+        className='ButtonRemove'
+      >
+        X
+      </button>
       <div className='Box-header'>
         <DescriptionField
-          description={text}
+          description={box.description}
           onDescriptionChange={(e) => onDataChange.onBoxDescriptionChange(indexBox, e.target.value)}
         />
         <div className='Header-column'>total: {totalDuration}</div>
       </div>
       <TaskList
+        key={box.id}
         indexBox={indexBox}
-        tasks={tasks}
+        tasks={box.tasks}
         moveTask={moveTask}
         onDataChange={onDataChange}
+        onAddOrRemove={onAddOrRemove}
       />
     </div>
   );
