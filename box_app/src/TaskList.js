@@ -52,15 +52,13 @@ const TaskList = ({ indexBox, tasks, moveTask, onDataChange, onAddOrRemove }) =>
 
   return (
     <div ref={drop} className='TaskList' data-handler-id={handlerId}>
-      <div>
-        <div>Tasks</div>
-        <button
-          onClick={() => onAddOrRemove.onTaskAdd(indexBox)}
-          className='AddTask'>
-          +
-        </button>
-      </div>
+      <div>Tasks</div>
       <div style={{styleTasks}}>{tasks.map((t, i) => renderTask(t, i))}</div>
+      <button
+        onClick={() => onAddOrRemove.onTaskAdd(indexBox)}
+        className='AddTask'>
+        ➕ task
+      </button>
     </div>
   );  
 };

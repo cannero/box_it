@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
+import DescriptionField from './DescriptionField';
 import './assets/Task.css';
 
 export const Task= ({ id, task, indexBox, indexTask, moveTask, onDataChange,
@@ -82,9 +83,12 @@ export const Task= ({ id, task, indexBox, indexTask, moveTask, onDataChange,
       <button
         onClick={() => onAddOrRemove.onTaskRemove(indexBox, indexTask)}
         className='ButtonRemove'>
-        X
+        ✘
       </button>
-      {task.description}
+      <DescriptionField
+        description={task.description}
+        onDescriptionChange={(e) => onDataChange.onTaskDescriptionChange(indexBox, indexTask, e.target.value)}
+      />
       <br/>
       <label>Duration:</label>
       <input className='TaskDurationInput'

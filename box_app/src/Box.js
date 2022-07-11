@@ -75,7 +75,7 @@ const Box = ({ id, indexBox, box, moveBox, moveTask, onDataChange, onAddOrRemove
         onClick={() => onAddOrRemove.onBoxRemove(indexBox)}
         className='ButtonRemove'
       >
-        X
+        ✘
       </button>
       <div className='Box-header'>
         <DescriptionField
