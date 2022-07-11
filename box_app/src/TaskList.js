@@ -3,9 +3,6 @@ import { useDrop } from 'react-dnd';
 import { Task } from './Task';
 import { ItemTypes } from './ItemTypes';
 import './assets/TaskList.css';
-const styleTasks = {
-  width: 300,
-};
 
 const TaskList = ({ indexBox, tasks, moveTask, onDataChange, onAddOrRemove }) => {
 
@@ -53,7 +50,7 @@ const TaskList = ({ indexBox, tasks, moveTask, onDataChange, onAddOrRemove }) =>
   return (
     <div ref={drop} className='TaskList' data-handler-id={handlerId}>
       <div>Tasks</div>
-      <div style={{styleTasks}}>{tasks.map((t, i) => renderTask(t, i))}</div>
+      <div>{tasks.map((t, i) => renderTask(t, i))}</div>
       <button
         onClick={() => onAddOrRemove.onTaskAdd(indexBox)}
         className='AddTask'>
