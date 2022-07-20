@@ -2,13 +2,16 @@ import { useCallback, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import ExportImportComponent from './ExportImportComponent';
-import { BoardService } from './BoardService';
+import { BoardService } from './services/BoardService';
+import { ImAndExporter } from './services/ImAndExporter';
+import useTimeout from './hooks/useTimeout';
 import Board from './Board';
 import './assets/App.css';
 
 function App() {
 
-  const [boxes, setBoxes] = useState(BoardService.getBoard());
+  const saveDelay = 0.4;
+  const [boxes, setBoxes] = useState(() => BoardService.getBoard());
 
   const moveBox = useCallback((dragIndex, hoverIndex) => {
     setBoxes((prevBoxes) =>
@@ -65,16 +68,20 @@ function App() {
   }, []);
 
   const getStateForExport = useCallback(() => {
-    return BoardService.prepareExport(boxes);
+    return ImAndExporter.prepareExport(boxes);
   }, [boxes]);
 
   const importState = useCallback((state) => {
-    const boxesFromImport = BoardService.getBoxesFromImport(state);
+    const boxesFromImport = ImAndExporter.getBoxesFromImport(state);
     if (boxesFromImport === null) {
       return;
     }
     setBoxes((prevBoxes) => boxesFromImport);
   }, []);
+
+  useTimeout(
+    BoardService.saveBoard(boxes),
+    saveDelay*1000);
 
   const onDataChange = {
     onBoxDescriptionChange: handleBoxDescriptionChange,

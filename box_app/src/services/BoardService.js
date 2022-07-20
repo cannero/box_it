@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper';
 
+const boardKey = 'boardKey';
+
 export const BoardService = {
   moveBox: function(board, prevIndex, newIndex) {
     return update(board, {
@@ -31,7 +33,13 @@ export const BoardService = {
     }
   },
   getBoard: function() {
-    return this.initialBoard;
+    const board = localStorage.getItem(boardKey);
+    console.log('getting', board);
+    if (board !== undefined && board !== null) {
+      return JSON.parse(board);
+    } else {
+      return this.initialBoard;
+    }
   },
   getTotalDuration: function(tasks) {
     return tasks.reduce((acc, task) => acc + task.duration, 0);
@@ -69,21 +77,10 @@ export const BoardService = {
       [indexTask, 1]
     ]}}});
   },
-  prepareExport: function(board) {
-    return {
-      version: this.version,
-      board: board,
-    };
+  saveBoard: function(board) {
+    console.log('saving', board);
+    localStorage.setItem(boardKey, JSON.stringify(board));
   },
-  getBoxesFromImport: function(state) {
-    if (state === undefined || state.version !== this.version ||
-      state.board === undefined) {
-      console.log('not a valid import: ', state);
-      return null;
-    }
-    return state.board;
-  },
-  version: 0.1,
   initialBoard: [
       {
         id: 1,

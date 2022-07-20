@@ -213,7 +213,6 @@ test('changes box description', () => {
   const newDescription = 'new box 2 description';
 
   const changedBoard = BoardService.setBoxDescription(getInitialBoard(), indexBox, newDescription);
-  console.log(changedBoard);
   expect(changedBoard[indexBox].description).toEqual(newDescription);
 });
 
@@ -283,65 +282,6 @@ test('changes task description', () => {
 
   const changedBoard = BoardService.setTaskDescription(getInitialBoard(), indexBox, indexTask, newDescription);
   expect(changedBoard[indexBox].tasks[indexTask].description).toEqual(newDescription);
-});
-
-test('export adds version', () => {
-  const board = [
-    {
-      id: 'box1',
-      tasks: [
-      ],
-    },
-  ];
-
-  const exportBoard = {
-    version: 0.1,
-    board: [
-      {
-        id: 'box1',
-        tasks: [
-        ],
-      },
-    ],
-  };
-  expect(BoardService.prepareExport(board)).toEqual(exportBoard);
-});
-
-test('get boxes from import checks version', () => {
-  const importState = {
-    NoVersionDefined: 'nono',
-    boxes: [
-     {
-        id: 'box1',
-        tasks: [
-        ],
-      },
-    ],
-  };
-
-  expect(BoardService.getBoxesFromImport(importState)).toEqual(null);
-});
-
-test('get boxes from import returns board', () => {
-  const importState = {
-    version: 0.1,
-    board: [
-     {
-        id: 'box1',
-        tasks: [
-        ],
-      },
-    ],
-  };
-
-  const board = [
-   {
-      id: 'box1',
-      tasks: [
-      ],
-    },
-  ];
-  expect(BoardService.getBoxesFromImport(importState)).toEqual(board);
 });
 
 test('a new box with an id is added', () => {

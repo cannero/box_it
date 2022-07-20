@@ -2,7 +2,7 @@ import { useRef, useMemo } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import TaskList from './TaskList';
-import { BoardService } from './BoardService';
+import { BoardService } from './services/BoardService';
 import DescriptionField from './DescriptionField';
 import './assets/Box.css';
 
