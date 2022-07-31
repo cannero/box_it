@@ -27,3 +27,11 @@ task :devel do
   end
 end
 
+task :csslint do
+  sh "sudo docker-compose run --rm dev_react npx stylelint \"**/*.css\"" do |ok, res|
+    if !ok
+      puts res
+      puts res.exitstatus
+    end
+  end
+end

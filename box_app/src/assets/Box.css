@@ -1,11 +1,13 @@
 .Box-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .Box-header .Header-column {
   padding: 1rem 1rem;
   margin: 0.1rem 1rem 0.2rem 1rem;
+  /* Hacky? total time box grows otherwise with input */
+  width: 6.5rem;
 }
 
 .Box {

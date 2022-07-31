@@ -4,4 +4,10 @@
   margin: 0.5rem 1rem;
   background-color: white;
   cursor: grab;
-};
+}
+
+.TaskDurationInput {
+  width: 4rem;
+  margin: 0.5rem 1rem;
+  padding: 0.2rem;
+}
