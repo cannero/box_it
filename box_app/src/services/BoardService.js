@@ -65,7 +65,7 @@ export const BoardService = {
     });
   },
   addBox: function(board) {
-    const newBox = {id: uuidv4(), description: '', tasks: []};
+    const newBox = {id: uuidv4(), description: '', maxDuration: 0.0, tasks: []};
     return update(board, {$push: [newBox]});
   },
   removeBox: function(board, indexBox) {
