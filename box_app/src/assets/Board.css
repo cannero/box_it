@@ -1,16 +1,15 @@
-.Board {
+.board {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: space-around;
-  flex-wrap: wrap;
 }
 
-.BoxAdd {
+.box-add {
   width: 5rem;
-  margin: 0.5rem 0.5rem;
+  margin: 0.5rem;
 }
 
-.BoxAddButton {
+.box-add-button {
   border: 2px solid blue;
   margin: 5px;
 }

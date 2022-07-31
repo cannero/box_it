@@ -78,11 +78,11 @@ export const Task= ({ id, task, indexBox, indexTask, moveTask, onDataChange,
   };
 
   return (
-    <div className='Task' ref={taskRef}
+    <div className='task' ref={taskRef}
       style={{ opacity }} data-handler-id={handlerId}>
       <button
         onClick={() => onAddOrRemove.onTaskRemove(indexBox, indexTask)}
-        className='ButtonRemove'>
+        className='button-remove'>
         ✘
       </button>
       <DescriptionField
@@ -91,7 +91,7 @@ export const Task= ({ id, task, indexBox, indexTask, moveTask, onDataChange,
       />
       <br/>
       <label>Duration:</label>
-      <input className='TaskDurationInput'
+      <input className='task-duration-input'
         type='number'
         min='0'
         step='0.5'

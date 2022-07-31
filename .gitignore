@@ -129,5 +129,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-#rake
+# rake
 .rake_tasks~
+
+# npm build directory
+build/

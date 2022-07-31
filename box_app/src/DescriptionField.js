@@ -2,15 +2,15 @@ import './assets/DescriptionField.css';
 
 function DescriptionField( {description, onDescriptionChange} ) {
   return (
-    <div className="Description-wrapper">
-      <div className="Description-input-data">
+    <div className="description-wrapper">
+      <div className="description-input-data">
         <input
           type="text"
           value={description}
           onChange={onDescriptionChange}
           required
         />
-        <div className="Description-underline"></div>
+        <div className="description-underline"></div>
         <label>Description</label>
       </div>
     </div>

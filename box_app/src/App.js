@@ -97,7 +97,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="app">
       <DndProvider backend={HTML5Backend}>
         <Board
           boxes={boxes}

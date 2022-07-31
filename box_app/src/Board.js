@@ -20,10 +20,10 @@ function Board({ boxes, moveBox, moveTask, onDataChange, onAddOrRemove }) {
   }, [moveBox, moveTask, onDataChange, onAddOrRemove]);
 
   return (
-    <div className='Board'>
+    <div className='board'>
       {boxes.map((box, i) => renderBox(box, i))}
-      <div className='BoxAdd'>
-        <button onClick={() => onAddOrRemove.onBoxAdd()}>
+      <div className='box-add'>
+        <button className='box-add-button' onClick={() => onAddOrRemove.onBoxAdd()}>
           <img src={plus} alt="add a box"/>
           <div>Add a box</div>
         </button>

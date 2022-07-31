@@ -70,19 +70,19 @@ const Box = ({ id, indexBox, box, moveBox, moveTask, onDataChange, onAddOrRemove
   const totalDuration = useMemo(() => BoardService.getTotalDuration(box.tasks), [box.tasks] );
 
   return (
-    <div ref={boxRef} style={{ opacity }} data-handler-id={handlerId} className='Box'>
+    <div ref={boxRef} style={{ opacity }} data-handler-id={handlerId} className='box'>
       <button
         onClick={() => onAddOrRemove.onBoxRemove(indexBox)}
-        className='ButtonRemove'
+        className='button-remove'
       >
         ✘
       </button>
-      <div className='Box-header'>
+      <div className='box-header'>
         <DescriptionField
           description={box.description}
           onDescriptionChange={(e) => onDataChange.onBoxDescriptionChange(indexBox, e.target.value)}
         />
-        <div className='Header-column'>total: {totalDuration}</div>
+        <div className='header-column'>total: {totalDuration}</div>
       </div>
       <TaskList
         key={box.id}

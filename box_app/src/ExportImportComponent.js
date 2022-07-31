@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import './assets/ExportImportComponent.css';
 
 function ExportImportComponent({ getStateForExport, importState }) {
 
@@ -42,8 +43,8 @@ function ExportImportComponent({ getStateForExport, importState }) {
 
   return(
     <div>
-      <div className='ExportImportButtonContainer'>
-        <button onClick={exportFile}>
+      <div className='export-import-buttoncontainer'>
+        <button onClick={exportFile} className='button-6'>
           Export
         </button>
         <input
@@ -52,7 +53,7 @@ function ExportImportComponent({ getStateForExport, importState }) {
           type="file"
           onChange={handleImportFileChange}
         />
-        <button onClick={handleImportClick}>
+        <button onClick={handleImportClick} className='button-6'>
           Import
         </button>
       </div>
