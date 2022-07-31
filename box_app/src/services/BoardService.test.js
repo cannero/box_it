@@ -216,7 +216,7 @@ test('changes box description', () => {
   expect(changedBoard[indexBox].description).toEqual(newDescription);
 });
 
-test('duration is changed', () => {
+test('task duration is changed', () => {
   const board = [
     {
       id: 'box1',
@@ -312,17 +312,27 @@ test('task is removed', () => {
   expect(boardWithTaskRemoved[indexBox].tasks[1].id).toEqual('task3');
 });
 
+test('max duration is updated', () => {
+  const board = getInitialBoard();
+  const indexBox = 1;
+  const newDuration = 2345.123;
+  const boardWithNewDuration = BoardService.setBoxMaxDuration(board, indexBox, newDuration);
+  expect(boardWithNewDuration[indexBox].maxDuration).toBeCloseTo(newDuration);
+});
+
 const getInitialBoard = () => {
   const board = [
     {
       id: 'box1',
       description: 'descr box 1',
+      maxDuration: 1.0,
       tasks: [
       ],
     },
     {
       id: 'box2',
       description: 'descr box 2',
+      maxDuration: 2.0,
       tasks: [
         {
           id: 'task1',

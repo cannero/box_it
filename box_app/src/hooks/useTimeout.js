@@ -18,7 +18,7 @@ function useTimeout(callback, delay) {
       savedCallback.current();
     }
     if (delay !== null) {
-      const id = setTimeout(tick, delay*1000);
+      const id = setTimeout(tick, delay);
       return () => clearTimeout(id);
     }
   }, [delay, callback]);

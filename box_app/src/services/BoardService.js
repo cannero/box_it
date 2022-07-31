@@ -44,6 +44,11 @@ export const BoardService = {
   getTotalDuration: function(tasks) {
     return tasks.reduce((acc, task) => acc + task.duration, 0);
   },
+  setBoxMaxDuration: function(board, indexBox, newDuration) {
+    return update(board, {
+      [indexBox]: {maxDuration: {$set: newDuration}}
+    });
+  },
   setBoxDescription: function(board, indexBox, newDescription) {
     return update(board, {
       [indexBox]: {description: {$set: newDescription}}
@@ -85,6 +90,7 @@ export const BoardService = {
       {
         id: 1,
         description: "box 1",
+        maxDuration: 10,
         tasks: [
           {
             id: 1,
@@ -96,6 +102,7 @@ export const BoardService = {
       {
         id: 2,
         description: "box 2",
+        maxDuration: 20,
         tasks: [
           {
             id: 2,
@@ -112,6 +119,7 @@ export const BoardService = {
       {
         id: 3,
         description: "box 3",
+        maxDuration: 12,
         tasks: []
       },
     ]

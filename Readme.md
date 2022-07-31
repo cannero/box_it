@@ -16,6 +16,7 @@ Simple card movement react app
 - check for rake abort status
 - input for all fields
 - test import/export board
+- apply version upgrade logic on initial load
 - layout
   - :root{
 - https://www.freecodecamp.org/news/best-practices-for-react/

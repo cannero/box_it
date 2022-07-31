@@ -10,7 +10,7 @@ import './assets/App.css';
 
 function App() {
 
-  const saveDelay = 0.4;
+  const saveDelay = 0.5;
   const [boxes, setBoxes] = useState(() => BoardService.getBoard());
 
   const moveBox = useCallback((dragIndex, hoverIndex) => {
@@ -36,6 +36,13 @@ function App() {
       BoardService.setTaskDescription(prevBoxes, indexBox, indexTask, newDescription)
     )
   }, []);
+
+  const handleBoxMaxDurationChange = useCallback((indexBox, newDuration) => {
+    setBoxes((prevBoxes) =>
+      BoardService.setBoxMaxDuration(prevBoxes, indexBox, newDuration)
+    )
+  }, []);
+
 
   const handleTaskDurationChange = useCallback((indexBox, indexTask, newDuration) => {
     setBoxes((prevBoxes) =>
@@ -80,11 +87,12 @@ function App() {
   }, []);
 
   useTimeout(
-    BoardService.saveBoard(boxes),
+    () => BoardService.saveBoard(boxes),
     saveDelay*1000);
 
   const onDataChange = {
     onBoxDescriptionChange: handleBoxDescriptionChange,
+    onBoxMaxDurationChange: handleBoxMaxDurationChange,
     onTaskDescriptionChange: handleTaskDescriptionChange,
     onTaskDurationChange: handleTaskDurationChange,
   };

@@ -82,7 +82,16 @@ const Box = ({ id, indexBox, box, moveBox, moveTask, onDataChange, onAddOrRemove
           description={box.description}
           onDescriptionChange={(e) => onDataChange.onBoxDescriptionChange(indexBox, e.target.value)}
         />
-        <div className='header-column'>total: {totalDuration}</div>
+        <div className={`header-column ${totalDuration > box.maxDuration ? 'duration-overflow' : ''}`}>
+          <div>total: {totalDuration}/</div>
+          <input className='box-duration-input'
+            type='number'
+            min='0'
+            step='0.5'
+            value={box.maxDuration}
+            onChange={(e) => onDataChange.onBoxMaxDurationChange(indexBox, e.target.value)}
+          />
+        </div>
       </div>
       <TaskList
         key={box.id}
