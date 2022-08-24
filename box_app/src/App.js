@@ -1,16 +1,19 @@
 import { useCallback, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import ExportImportComponent from './ExportImportComponent';
 import { BoardService } from './services/BoardService';
 import { ImAndExporter } from './services/ImAndExporter';
 import useTimeout from './hooks/useTimeout';
 import Board from './Board';
+import Checkbox from './Checkbox';
 import './assets/App.css';
 
 function App() {
 
   const saveDelay = 0.5;
+  const [useTouch, setUseTouch] = useState(false);
   const [boxes, setBoxes] = useState(() => BoardService.getBoard());
 
   const moveBox = useCallback((dragIndex, hoverIndex) => {
@@ -106,7 +109,14 @@ function App() {
 
   return (
     <div className="app">
-      <DndProvider backend={HTML5Backend}>
+      <div className="touchscreen">
+        <Checkbox
+          isChecked={useTouch}
+          onCheckChange={() => setUseTouch((isChecked) => !isChecked)}
+          label={"use touch screen"}
+        />
+      </div>
+      <DndProvider backend={useTouch ? TouchBackend : HTML5Backend}>
         <Board
           boxes={boxes}
           moveBox={moveBox}

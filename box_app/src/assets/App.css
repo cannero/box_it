@@ -20,3 +20,8 @@
 .button-remove {
   color: red;
 }
+
+.touchscreen {
+  margin: 1em;
+  font-size: 1.2em;
+}
