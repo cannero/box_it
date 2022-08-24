@@ -13,7 +13,7 @@ import './assets/App.css';
 function App() {
 
   const saveDelay = 0.5;
-  const [useTouch, setUseTouch] = useState(true);
+  const [useTouch, setUseTouch] = useState(false);
   const [boxes, setBoxes] = useState(() => BoardService.getBoard());
 
   const moveBox = useCallback((dragIndex, hoverIndex) => {
